@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.ResultSet;
 
 public class DatabaseManager {
 
@@ -106,7 +107,22 @@ public class DatabaseManager {
                         CHECK (edad BETWEEN 14 AND 60)
                 )
                 """);
-
+            ResultSet resultado=st.executeQuery("SELECT COUNT(*) FROM juego");
+            int cantidad=0;
+            if (resultado.next()) {
+                cantidad=resultado.getInt(1);
+            }
+            resultado.close();
+            if (cantidad == 0) {
+    st.executeUpdate("""
+        INSERT INTO juego (nombre) VALUES
+        ('League of Legends'),
+        ('Valorant'),
+        ('Rocket League'),
+        ('Fifa 27'),
+        ('Fortnite')
+        """);
+}
             System.out.println("Base de datos creada correctamente");
 
         } catch (SQLException e) {
