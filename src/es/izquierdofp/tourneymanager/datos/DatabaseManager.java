@@ -165,6 +165,62 @@ if (cantidadEquipo == 0) {
         ('Granada Lions', 'Granada', 2024)
         """);
 }
+ResultSet resultadoTorneo = st.executeQuery("SELECT COUNT(*) FROM torneo");
+
+int cantidadTorneo = 0;
+
+if (resultadoTorneo.next()) {
+    cantidadTorneo = resultadoTorneo.getInt(1);
+}
+
+resultadoTorneo.close();
+
+if (cantidadTorneo == 0) {
+    st.executeUpdate("""
+        INSERT INTO torneo (nombre, juego_id, fecha, premio, online) VALUES
+        ('Copa Zaragoza', 1, date('now', '-20 days'), 500, 0),
+        ('Valorant Cup', 2, date('now', '-10 days'), 800, 1),
+        ('Rocket League Cup', 3, date('now', '+3 days'), 600, 1),
+        ('FC Championship', 4, date('now', '+15 days'), 1000, 0),
+        ('Fortnite Cup', 5, date('now', '+25 days'), 1500, 1),
+        ('League Masters', 1, date('now', '+30 days'), 2000, 0)
+        """);
+}
+ResultSet resultadoInscripcion = st.executeQuery("SELECT COUNT(*) FROM inscripcion");
+
+int cantidadInscripcion = 0;
+
+if (resultadoInscripcion.next()) {
+    cantidadInscripcion = resultadoInscripcion.getInt(1);
+}
+
+resultadoInscripcion.close();
+
+if (cantidadInscripcion == 0) {
+    st.executeUpdate("""
+        INSERT INTO inscripcion (equipo_id, torneo_id, posicion) VALUES
+        (1, 1, 1),
+        (2, 1, 2),
+        (3, 1, 3),
+        (4, 1, 4),
+
+        (5, 2, 1),
+        (6, 2, 2),
+        (7, 2, 3),
+
+        (1, 3, NULL),
+        (8, 3, NULL),
+
+        (2, 4, NULL),
+        (3, 4, NULL),
+
+        (4, 5, NULL),
+        (5, 5, NULL),
+
+        (6, 6, NULL),
+        (7, 6, NULL)
+        """);
+}
             System.out.println("Base de datos creada correctamente");
 
         } catch (SQLException e) {
