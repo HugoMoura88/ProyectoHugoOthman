@@ -119,8 +119,50 @@ public class DatabaseManager {
         ('League of Legends'),
         ('Valorant'),
         ('Rocket League'),
-        ('Fifa 27'),
+        ('EA Sports FC'),
         ('Fortnite')
+        """);
+}
+            ResultSet resultadoRol = st.executeQuery("SELECT COUNT(*) FROM rol");
+
+int cantidadRol = 0;
+
+if (resultadoRol.next()) {
+    cantidadRol = resultadoRol.getInt(1);
+}
+
+resultadoRol.close();
+
+if (cantidadRol == 0) {
+    st.executeUpdate("""
+        INSERT INTO rol (nombre) VALUES
+        ('Capitán'),
+        ('Titular'),
+        ('Suplente'),
+        ('Entrenador')
+        """);
+}
+ResultSet resultadoEquipo = st.executeQuery("SELECT COUNT(*) FROM equipo");
+
+int cantidadEquipo = 0;
+
+if (resultadoEquipo.next()) {
+    cantidadEquipo = resultadoEquipo.getInt(1);
+}
+
+resultadoEquipo.close();
+
+if (cantidadEquipo == 0) {
+    st.executeUpdate("""
+        INSERT INTO equipo (nombre, ciudad, fundacion) VALUES
+        ('Zaragoza Gaming', 'Zaragoza', 2020),
+        ('Madrid Wolves', 'Madrid', 2018),
+        ('Barcelona Titans', 'Barcelona', 2019),
+        ('Valencia Dragons', 'Valencia', 2021),
+        ('Sevilla Kings', 'Sevilla', 2022),
+        ('Bilbao Eagles', 'Bilbao', 2017),
+        ('Malaga Phoenix', 'Malaga', 2023),
+        ('Granada Lions', 'Granada', 2024)
         """);
 }
             System.out.println("Base de datos creada correctamente");
